@@ -1,0 +1,27 @@
+{{ $image := .Values.client.image }}
+{{ $root := . }}
+{{- range .Values.users }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "minetest.fullname" $root }}-client-{{ . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: client-{{ . }}
+  template:
+    metadata:
+      labels:
+        name: client-{{ . }}
+    spec:
+      containers:
+        - name: client
+          image: {{ $image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+---
+{{- end -}}

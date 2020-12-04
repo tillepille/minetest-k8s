@@ -1,0 +1,12 @@
+FROM dorowu/ubuntu-desktop-lxde-vnc:focal
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+  build-essential cmake  libirrlicht-dev libbz2-dev libjpeg8-dev \
+  libxxf86vm-dev  libgl1-mesa-dev  libsqlite3-dev  libogg-dev \
+  libvorbis-dev  libopenal-dev  libcurl4-gnutls-dev  libfreetype6-dev \
+  libgettextpo0 git make
+
+WORKDIR /minetest
+RUN git clone --branch stable-5 https://github.com/minetest/minetest.git 
+WORKDIR /minetest/minetest
+RUN git clone --branch stable-5 https://github.com/minetest/minetest_game.git games/minetest_game
+RUN cmake . -DRUN_IN_PLACE=0 -DENABLE_GETTEXT=1 && make -j2 && make install 

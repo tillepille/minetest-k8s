@@ -1,0 +1,22 @@
+version: "2.4"
+services:
+  minetest:
+    image: ghcr.io/linuxserver/minetest
+    container_name: minetest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - ./minetest_config:/config/.minetest
+    ports:
+      - 30000:30000
+    restart: unless-stopped
+  desktop1:
+    image: minetest-novnc
+    ports:
+        - 8080:8080
+  desktop2:
+    image: minetest-novnc
+    ports:
+        - 8081:8080
