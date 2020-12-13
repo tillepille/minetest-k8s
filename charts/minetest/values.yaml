@@ -7,18 +7,15 @@ server:
   image: ghcr.io/linuxserver/minetest
   service:
     type: ClusterIP
-    port: 80
+    port: 30000
 client:
-  image: tillepille/minetest-client-vnc
+  image: tillepille/minetest-client
   service:
     type: ClusterIP
     port: 80
 
 image:
-  repository: nginx
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -30,7 +27,8 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 ingress:
-  host: cluster.tillepille.io
+  enabled: true
+  host: ab.staging.talentplatforms.net
 
 users:
   - user1

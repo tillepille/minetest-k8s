@@ -1,15 +1,19 @@
+{{ $root := . }}
+{{- range .Values.users }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "minetest.fullname" . }}
+  name: {{ include "minetest.fullname" $root }}-client-{{ . }}
   labels:
-    {{- include "minetest.labels" . | nindent 4 }}
+    {{- include "minetest.labels" $root | nindent 4 }}
 spec:
-  type: {{ .Values.client.service.type }}
+  type: {{ $root.Values.client.service.type }}
   ports:
-    - port: {{ .Values.client.service.port }}
+    - port: {{ $root.Values.client.service.port }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    {{- include "minetest.selectorLabels" . | nindent 4 }}
+    {{- include "minetest.selectorClientLabels" $root | nindent 4 -}}{{ . }}
+---
+{{- end -}}

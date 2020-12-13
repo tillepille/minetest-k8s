@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "minetest.fullname" . }}
+  name: {{ include "minetest.fullname" . }}-server
   labels:
     {{- include "minetest.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.server.service.type }}
   ports:
-    - port: {{ .Values.server.service.port }}
-      targetPort: minetest
-      protocol: TCP
-      name: http
+    - port: 80
+      targetPort: 30000
+      protocol: UDP
   selector:
     {{- include "minetest.selectorLabels" . | nindent 4 }}

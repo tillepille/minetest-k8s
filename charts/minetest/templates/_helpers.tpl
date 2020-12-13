@@ -51,6 +51,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector client labels
+*/}}
+{{- define "minetest.selectorClientLabels" -}}
+app.kubernetes.io/name: {{ include "minetest.name" . }}-client
+app.kubernetes.io/instance: {{ .Release.Name }}-client
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "minetest.serviceAccountName" -}}

@@ -22,12 +22,12 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image }}"
+          image: "{{ .Values.server.image }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: minetest
               containerPort: 30000
-              protocol: TCP
+              protocol: UDP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
