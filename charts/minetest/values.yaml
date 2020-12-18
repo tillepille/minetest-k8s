@@ -8,14 +8,22 @@ server:
   service:
     type: ClusterIP
     port: 30000
+  resources:
+    limits:
+      cpu: 4
+      memory: 8Gi
 client:
   image: tillepille/minetest-client
   service:
     type: ClusterIP
     port: 80
+  resources:
+    limits:
+      cpu: 4
+      memory: 4Gi
 
 image:
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
@@ -33,4 +41,11 @@ ingress:
 users:
   - user1
   - user2
-
+  - user3
+  - user4
+  - user5
+  - user6
+  - user7
+  - user8
+  - user9
+  - user10
