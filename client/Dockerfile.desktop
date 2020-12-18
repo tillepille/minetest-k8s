@@ -6,7 +6,12 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   libgettextpo0 git make
 
 WORKDIR /minetest
+
 RUN git clone --branch stable-5 https://github.com/minetest/minetest.git 
+
 WORKDIR /minetest/minetest
+
 RUN git clone --branch stable-5 https://github.com/minetest/minetest_game.git games/minetest_game
 RUN cmake . -DRUN_IN_PLACE=0 -DENABLE_GETTEXT=1 && make -j2 && make install 
+
+COPY minetest.conf /root/.minetest/minetest.conf
