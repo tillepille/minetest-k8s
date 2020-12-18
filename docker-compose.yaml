@@ -12,11 +12,9 @@ services:
     ports:
       - 30000:30000
     restart: unless-stopped
-  desktop1:
-    image: minetest-novnc
+  desktop:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.desktop
     ports:
-        - 8080:8080
-  desktop2:
-    image: minetest-novnc
-    ports:
-        - 8081:8080
+        - 8080:80
